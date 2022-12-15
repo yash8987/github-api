@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API</title>
+    <style>
+        .container{
+            height: 550px;
+            width: 900px;
+            border: 5px solid gold;
+            display: flex;
+            justify-content: center;
+            border-radius: 20px;
+            padding-top: 10px;
+            background-image: url('https://cdn.arstechnica.net/wp-content/uploads/2018/06/microsoft-github.png');
+        }
+        body{
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+            background-image: url('https://user-images.githubusercontent.com/3369400/133268513-5bfe2f93-4402-42c9-a403-81c9e86934b6.jpeg');
+        }
+        #username{
+            border: 3px solid brown;
+            margin-right: 10px;
+            width: 200px;
+            border-radius: 10px;
+        }
+        button{
+            border: 3px solid rebeccapurple;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="search">
+            <input type="text" id="username">
+            <button onclick="getdeets()">give details</button>
+        </div>
+        <div id="output">
+            <div id="name"></div>
+            <div id="bio"></div>
+            <div id="following"></div>
+            <div id="follower"></div>
+            <div id="profile"></div>
+        </div>
+    </div>
+    <script>
+        function getdeets(){
+            const name = document.getElementById('username').value;
+            fetch(`https://api.github.com/users/${name}`).then(function(data){
+                return data.json()
+            }).then(function(e){
+                document.getElementById('name').innerHTML = e.name
+                document.getElementById('bio').innerHTML = e.bio
+                document.getElementById('follower').innerHTML = e.followers
+                document.getElementById('following').innerHTML = e.following
+                document.getElementById('profile').innerHTML = `<img src="${e.avatar_url}"/>`
+            })
+
+        
+        }
+
+    </script>
+</body>
+</html>
